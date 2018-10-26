@@ -3,29 +3,40 @@
 from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_B, SpeedPercent, MoveTank, SpeedRPM
 import time
 
-def X(brazo, vueltas):
+def X(brazo, n): # n movimientos
         brazo.on_for_seconds(35, 0.28)
         brazo.stop()
-        for x in range(0, vueltas):
+        for x in range(0, n):
                 brazo.on_for_seconds(35, 0.305)
                 brazo.on_for_seconds(-35, 0.305)
         brazo.on_for_seconds(-35, 0.3)
         brazo.stop()
 
-def Xprima(brazo):
+def Xprima(brazo): # 3 movimientos
         X(brazo, 3)
 
-def Yprima(base, vueltas):
-        for x in range(0, vueltas):
+def Yprima(base, n): # n movimientos
+        for x in range(0, n):
                 base.on_for_degrees(SpeedPercent(-40), 261.5)
                 base.stop()
     
-def Y(base, vueltas):
-        for x in range(0, vueltas):
+def Y(base, n): # n movimientos
+        for x in range(0, n):
                 base.on_for_degrees(SpeedPercent(40), 261.5)
                 base.stop()
 
-def D(brazo, base, n):
+def Z(base, brazo, n): #4 + n movimientos
+    X(brazo, 1)
+    Y(base, n)
+    Xprima(brazo)
+
+def Zprima(base, brazo, n): #4 + n movimientos
+    X(brazo, 1)
+    Y(base, n)
+    Xprima(brazo)
+
+
+def D(brazo, base, n): # n movimientos
 
         brazo.on_for_seconds(35, 0.28)
         brazo.stop()
@@ -36,7 +47,7 @@ def D(brazo, base, n):
         brazo.on_for_seconds(-35, 0.3)
         brazo.stop()
 
-def Dprima(brazo, base, n):
+def Dprima(brazo, base, n): # n movimientos 
 
         brazo.on_for_seconds(35, 0.28)
         brazo.stop()
@@ -144,4 +155,3 @@ def S(brazo, base):
     Y(base, 1)
     X(brazo, 1)
     Yprima(base, 1)
-
