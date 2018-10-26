@@ -2,7 +2,8 @@
 #xd
 from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_B, SpeedPercent, MoveTank, SpeedRPM
 import time
-def flip(brazo, vueltas):
+
+def X(brazo, vueltas):
         brazo.on_for_seconds(35, 0.28)
         brazo.stop()
         for x in range(0, vueltas):
@@ -11,146 +12,136 @@ def flip(brazo, vueltas):
         brazo.on_for_seconds(-35, 0.3)
         brazo.stop()
 
-def girar_derecha(base, vueltas):
+def Xprima(brazo):
+        X(brazo, 3)
+
+def Yprima(base, vueltas):
         for x in range(0, vueltas):
                 base.on_for_degrees(SpeedPercent(-40), 261.5)
                 base.stop()
     
-def girar_izquierda(base, vueltas):
+def Y(base, vueltas):
         for x in range(0, vueltas):
                 base.on_for_degrees(SpeedPercent(40), 261.5)
                 base.stop()
 
-def rotate_right(brazo, base, vueltas):
+def D(brazo, base, n):
 
         brazo.on_for_seconds(35, 0.28)
         brazo.stop()
-        girar_izquierda(base, vueltas)
-        base.on_for_degrees(SpeedPercent(50), 73)
-        base.stop()
-        base.on_for_degrees(SpeedPercent(-50), 73)
-        base.stop()
-        brazo.on_for_seconds(-35, 0.3)
-        brazo.stop()
-
-def rotate_left(brazo, base, vueltas):
-
-        brazo.on_for_seconds(35, 0.28)
-        brazo.stop()
-        girar_derecha(base, vueltas)
+        Yprima(base, n)
         base.on_for_degrees(SpeedPercent(-50), 73)
         base.stop
         base.on_for_degrees(SpeedPercent(50), 73)
         brazo.on_for_seconds(-35, 0.3)
         brazo.stop()
 
-def U(brazo, base):
-        flip(brazo, 2)
-        rotate_left(brazo, base, 1)
-        flip(brazo, 2)
+def Dprima(brazo, base, n):
 
-def Uprima(brazo, base):
-        flip(brazo, 2)
-        rotate_right(brazo, base, 1)
-        flip(brazo, 2)
+        brazo.on_for_seconds(35, 0.28)
+        brazo.stop()
+        Y(base, n)
+        base.on_for_degrees(SpeedPercent(50), 73)
+        base.stop()
+        base.on_for_degrees(SpeedPercent(-50), 73)
+        base.stop()
+        brazo.on_for_seconds(-35, 0.3)
+        brazo.stop()
 
-def L(brazo, base):
-    girar_izquierda(base, 1)
-    flip(brazo, 1)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 1)
-    girar_derecha(base, 1)
-    flip(brazo, 2)
-    girar_derecha(base, 2)
+def U(brazo, base, n): #4 + n movimientos
+        X(brazo, 2)
+        D(brazo, base, n)
+        X(brazo, 2)
 
-def Lprima(brazo, base):
-    girar_izquierda(base, 1)
-    flip(brazo, 1)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 1)
-    girar_derecha(base, 1)
-    flip(brazo, 2)
-    girar_derecha(base, 2)
+def Uprima(brazo, base, n): #4 + n movimientos
+        X(brazo, 2)
+        Dprima(brazo, base, n)
+        X(brazo, 2)
 
-def F(brazo, base):
-    flip(brazo, 3)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 1)
+def L(brazo, base, n): #6 + n movimientos
+    Y(base, 1)
+    X(brazo, 1)
+    D(brazo, base, n)
+    Xprima(brazo)
+    Yprima(brazo, 1)
 
-def Fprima(brazo, base):
-    flip(brazo, 3)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 1)
+def Lprima(brazo, base, n): #6 + n movimientos
+    Y(base, 1)
+    X(brazo, 1)
+    Dprima(brazo, base, n)
+    Xprima(brazo)
+    Yprima(brazo, 1)
 
-def R(brazo, base):
-    girar_derecha(base, 1)
-    flip(brazo, 1)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 1)
-    girar_izquierda(base, 1)
-    flip(brazo, 2)
-    girar_derecha(base, 2)
+def F(brazo, base, n): #4 + n movimientos
+    Xprima(brazo)
+    D(brazo, base, n)
+    X(brazo, 1)
 
-def Rprima(brazo, base):
-    girar_derecha(base, 1)
-    flip(brazo, 1)
-    rotate_right(brazo, base, 1)
-    flip(brazo, 1)
-    girar_izquierda(base, 1)
-    flip(brazo, 2)
-    girar_derecha(base, 2)
+def Fprima(brazo, base, n): #4 + n movimientos
+    Xprima(brazo)
+    D(brazo, base, n)
+    X(brazo, 1)
 
-def B(brazo, base):
-    flip(brazo, 1)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 3)
+def R(brazo, base, n): #6 + n movimientos
+    Yprima(base, 1)
+    X(brazo, 1)
+    D(brazo, base, n)
+    Xprima(brazo)
+    Y(base, 1)
 
-def Bprima(brazo, base):
-    flip(brazo, 1)
-    rotate_right(brazo, base, 1)
-    flip(brazo, 3)
+def Rprima(brazo, base, n): #6 + n movimientos
+    Yprima(base, 1)
+    X(brazo, 1)
+    Dprima(brazo, base, n)
+    Xprima(brazo)
+    Y(base, 1)
 
-def D(brazo, base):
-        rotate_left(brazo, base, 1)
+def B(brazo, base, n): #4 + n movimientos
+    X(brazo, 1)
+    D(brazo, base, n)
+    Xprima(brazo)
 
-def Dprima(brazo, base):
-        rotate_right(brazo, base, 1)
+def Bprima(brazo, base, n): #4 + n movimientos
+    X(brazo, 1)
+    Dprima(brazo, base, n)
+    Xprima(brazo)
+
 
 def M(brazo, base):
-    girar_izquierda(base, 1)
-    flip(brazo, 1)
-    rotate_right(brazo, base, 1)
-    flip(brazo, 2)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 1)
-    girar_derecha(base, 1)
-    flip(brazo, 3)
+    Y(base, 1)
+    X(brazo, 1)
+    Dprima(brazo, base, n)
+    X(brazo, 2)
+    D(brazo, base, n)
+    X(brazo, 1)
+    Yprima(base, 1)
+    X(brazo, 3)
 
 def Mprima(brazo, base):
-    girar_izquierda(base, 1)
-    flip(brazo, 1)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 2)
-    rotate_right(brazo, base, 1)
-    flip(brazo, 1)
-    girar_derecha(base, 1)
-    flip(brazo, 1)
+    Y(base, 1)
+    X(brazo, 1)
+    D(brazo, base, 1)
+    X(brazo, 2)
+    Dprima(brazo, base, n)
+    X(brazo, 1)
+    Yprima(base, 1)
+    X(brazo, 1)
 
 #faltan revisar
 def Eprima(brazo, base):
-    rotate_right(brazo, base,1)
-    flip(brazo, 2)
-    rotate_right(brazo, base,1)
-    flip(brazo, 2)
-    girar_izquierda(base, 1)
+    Dprima(brazo, base,1)
+    X(brazo, 2)
+    Dprima(brazo, base,1)
+    X(brazo, 2)
+    Y(base, 1)
 
 def S(brazo, base):
-    flip(brazo, 1)
-    rotate_right(brazo, base, 1)
-    flip(brazo, 2)
-    rotate_left(brazo, base, 1)
-    flip(brazo, 1)
-    girar_izquierda(base, 1)
-    flip(brazo, 1)
-    girar_derecha(base, 1)
+    X(brazo, 1)
+    Dprima(brazo, base, 1)
+    X(brazo, 2)
+    D(brazo, base, 1)
+    X(brazo, 1)
+    Y(base, 1)
+    X(brazo, 1)
+    Yprima(base, 1)
 
