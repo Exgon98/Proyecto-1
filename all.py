@@ -55,15 +55,15 @@ def Yprima(base, n): # n movimientos
 def Y(base, n): # n movimientos
         girar_izquierda(base, n)
 
-def Z(base, brazo, n): #4 + n movimientos
-    X(brazo, 1)
-    Y(base, n)
-    Xprima(brazo)
+def Z(brazo, base, n): #2 + n movimientos
+    Yprima(base,1)
+    X(brazo, n)
+    Y(base,1)
 
-def Zprima(base, brazo, n): #4 + n movimientos
-    X(brazo, 1)
-    Y(base, n)
-    Xprima(brazo)
+def Zprima(brazo, base, n): #2 + n movimientos
+    Y(base, 1)
+    X(brazo, n)
+    Yprima(base,1)
 
 
 def D(brazo, base, n): # n movimientos
