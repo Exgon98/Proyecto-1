@@ -1,0 +1,153 @@
+#:import WipeTransition kivy.uix.screenmanager.WipeTransition
+
+
+<MyScreenManager>:
+    transition: WipeTransition()
+    VentanaMenu:
+    VentanaEmpezar:
+    VentanaOpciones:
+    VentanaAyuda:
+    VentanaConection:
+
+<VentanaMenu>:
+    name: 'menu'
+    AnchorLayout:
+        BoxLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            padding: 0,10,0,0
+            spacing: 10
+            size_hint:1, 0.25
+            orientation: 'vertical'
+            # Botones de presentación
+            Button:
+                id: button1
+                text: "Empezar"
+                on_release: app.root.current = 'pantalla_comandos'
+            Button:
+                id: button2
+                text: "Opciones"
+                on_release: app.root.current = 'opciones'
+            Button:
+                id: button3
+                text: "Ayuda"
+                on_release: app.root.current = 'ayuda'
+
+<VentanaEmpezar>:
+
+    name: 'pantalla_comandos'
+    size: root.size
+    id: pantalla_comandos
+    BoxLayout:
+        size: root.size
+        orientation: 'vertical'
+        padding: 20
+        spacing: 0
+
+        #Botón Para volver al menu
+        Button:
+            text: "Volver al menu"
+            on_release: app.root.current = 'menu'
+
+<VentanaOpciones>
+    name: 'opciones'
+    id: opciones
+    AnchorLayout:
+        BoxLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            padding: 0,10,0,0
+            spacing: 10
+            size_hint:1, 0.25
+            orientation: 'vertical'
+            #Buttons
+            Button:
+                text: 'Conectarse al Brick EV3'
+                on_release: app.root.current = 'conection'
+            
+            Button: 
+                text: 'music'
+
+            Button: 
+                text: 'fx'
+
+            #Botón Para volver al menu
+            Button:
+                text: "Volver al menu"
+                on_release: app.root.current = 'menu'
+
+
+<VentanaConection>
+    name: 'conection'
+    id: conection_id
+    AnchorLayout:
+        BoxLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            padding: 0,10,0,0
+            spacing: 10
+            size_hint:1, 0.25
+            orientation: 'vertical'   
+            rows: 6
+
+            Label:
+                text: 'Conexión con el Brick EV3'
+            
+            BoxLayout:
+                size_hint:2, 0.5
+
+            BoxLayout:
+                size_hint:1, 0.5
+                orientation: 'horizontal'  
+                Label:
+                    text: 'IP'
+                TextInput:              
+                    id: ip
+                    multiline: False
+
+            BoxLayout: 
+                size_hint:1, 0.5
+                orientation: 'horizontal'    
+                Label:
+                    text: 'Puerto'                 
+                TextInput:               
+                    id: puerto
+                    multiline: False  
+
+            BoxLayout:
+                size_hint:2, 0.5      
+                 
+            BoxLayout:
+                size_hint:1, 0.5
+                orientation: 'horizontal'  
+                #Buttons
+                Button:
+                    text: 'Conectar'
+                    on_release: app.root.current = 'opciones' 
+
+              
+
+                    #Botón Para volver a opciones
+                Button:
+                    text: 'Volver'
+                    on_release: app.root.current = 'opciones'    
+
+
+<VentanaAyuda>
+    name: 'ayuda'
+    id: ayuda
+    size: root.size
+
+    BoxLayout:
+        size: root.size
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+
+
+
+        #Botón Para volver al menu
+        Button:
+            text: "Volver al menu"
+            on_release: app.root.current = 'menu'
