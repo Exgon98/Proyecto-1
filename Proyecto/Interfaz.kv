@@ -81,44 +81,47 @@
     name: 'conection'
     id: conection_id
 
-    Label:
-        text: 'Conexión con el Brick EV3'
+    
 
     BoxLayout:
+        orientation: 'vertical'   
+        rows: 6
 
-        size_hint:1, 0.25
-        orientation: 'vertical'
         Label:
-            text: 'IP'
-        TextInput:              
-            id: ip
-            font_size: 12
-            multiline: False
+            text: 'Conexión con el Brick EV3'
+        
+        BoxLayout:
+            size_hint:1, 0.5
+            orientation: 'horizontal'  
+            Label:
+                text: 'IP'
+            TextInput:              
+                id: ip
+                font_size: 12
+                multiline: False
 
-    BoxLayout: 
+        BoxLayout: 
+            size_hint:1, 0.5
+            orientation: 'horizontal'    
+            Label:
+                text: 'Puerto'                 
+            TextInput:               
+                id: puerto
+                font_size: 12
+                multiline: False  
 
-        size_hint:1, 0.25
-        orientation: 'vertical'    
-        Label:
-            text: 'Puerto'    
-         
-        TextInput:               
-            id: puerto
-            font_size: 12
-            multiline: False  
+        BoxLayout:
+            size_hint:1, 0.5
+            orientation: 'horizontal'  
+            #Buttons
+            Button:
+                text: 'Conectar'
+                on_release: app.root.current = 'opciones'    
 
-    GridLayout:
-        size_hint:1, 0.25
-        orientation: 'vertical'  
-        #Buttons
-        Button:
-            text: 'Conectar'
-
-
-            #Botón Para volver a opciones
-        Button:
-            text: 'Volver'
-            on_release: app.root.current = 'opciones'    
+                #Botón Para volver a opciones
+            Button:
+                text: 'Volver'
+                on_release: app.root.current = 'opciones'    
 
 
 <VentanaAyuda>
